@@ -1,4 +1,3 @@
-import glob
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -7,8 +6,8 @@ import seaborn as sns
 n_comp_colors_1 = {
     "0": "#FFC9C9",
     "1": "#AED4B5",
-    "2": "#96F7E4",
-    "3": "#B8E6FE",
+    "2": "#B8E6FE",
+    "3": "#96F7E4",
     "4": "#FAE8FF",
     "5": "#F6CFFF",
     ">=6": "#E4E4E7",
@@ -18,7 +17,7 @@ n_comp_colors_2 = {
     "0": "#FFC9C9",
     "1": "#FFD6A7",
     "2": "#AED4B5",
-    "3": "#B8E6FE",
+    "3": "#96F7E4",
     "4": "#FAE8FF",
     "5": "#F6CFFF",
     ">=6": "#E4E4E7",
@@ -27,7 +26,7 @@ n_comp_colors_2 = {
 n_comp_colors_3 = {
     "0": "#FFC9C9",
     "1": "#FFD6A7",
-    "2": "#96F7E4",
+    "2": "#B8E6FE",
     "3": "#AED4B5",
     "4": "#FAE8FF",
     "5": "#F6CFFF",
@@ -56,14 +55,14 @@ def plot_stacked_counts(df, scatter_order=None, target_label="n_comp", pdf_name=
 
         if k_val == 2:
             n_comp_colors = n_comp_colors_1
-            model_order = ["GMM1", "SMM1_df3", "SMM8_df3", "PEM1"]
+            model_order = ["GMM1", "SMM1", "SMM8", "PEM1"]
         elif k_val == 3:
             n_comp_colors = n_comp_colors_2
-            model_order = ["GMM2", "GMM3", "GMM4", "GMM8", "GMM9", "SMM2_df3", "SMM3_df3", "SMM4_df3",
+            model_order = ["GMM2", "GMM3", "GMM4", "GMM8", "GMM9", "SMM2", "SMM3", "SMM4",
                            "PEM2", "PEM3", "PEM4", "PEM8", "PEM9", "PEM10", "PEM11"]
         else:
             n_comp_colors = n_comp_colors_3
-            model_order = ["GMM5", "GMM6", "GMM7", "SMM5_df3", "SMM6_df3", "SMM7_df3", "PEM5", "PEM6", "PEM7"]
+            model_order = ["GMM5", "GMM6", "GMM7", "SMM5", "SMM6", "SMM7", "PEM5", "PEM6", "PEM7"]
 
         # optional ordering for scatters
         if scatter_order is not None:
@@ -157,9 +156,7 @@ def plot_stacked_counts(df, scatter_order=None, target_label="n_comp", pdf_name=
         plt.show()
 
 
-files = glob.glob("results/result_*.csv")
-list_df = [pd.read_csv(f) for f in files]
-df_res = pd.concat(list_df, ignore_index=True)
+df_res = pd.read_parquet("results_concat.parquet")
 
 plot_stacked_counts(df_res, scatter_order=None, target_label="n_comp", pdf_name="ladle_counts_k")
 

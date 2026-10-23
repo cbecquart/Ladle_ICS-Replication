@@ -7,8 +7,8 @@ import seaborn as sns
 n_comp_colors_1 = {
     "0": "#FFC9C9",
     "1": "#AED4B5",
-    "2": "#96F7E4",
-    "3": "#B8E6FE",
+    "2": "#B8E6FE",
+    "3": "#96F7E4",
     "4": "#FAE8FF",
     "5": "#F6CFFF",
     ">=6": "#E4E4E7",
@@ -18,7 +18,7 @@ n_comp_colors_2 = {
     "0": "#FFC9C9",
     "1": "#FFD6A7",
     "2": "#AED4B5",
-    "3": "#B8E6FE",
+    "3": "#96F7E4",
     "4": "#FAE8FF",
     "5": "#F6CFFF",
     ">=6": "#E4E4E7",
@@ -27,7 +27,7 @@ n_comp_colors_2 = {
 n_comp_colors_3 = {
     "0": "#FFC9C9",
     "1": "#FFD6A7",
-    "2": "#96F7E4",
+    "2": "#B8E6FE",
     "3": "#AED4B5",
     "4": "#FAE8FF",
     "5": "#F6CFFF",
@@ -133,19 +133,19 @@ def plot_stacked_counts(df, scatter_order=None, target_label="n_comp", pdf_name=
 
         handles, labels = g.axes.flat[0].get_legend_handles_labels()
 
+        g.figure.subplots_adjust(
+            top=0.90,
+            bottom=0.33,
+            wspace=0.2,
+            hspace=0.2
+        )
+
         g.figure.legend(
             handles,
             labels,
             loc="lower center",
             ncol=len(labels),
-            bbox_to_anchor=(0.5, -0.05)
-        )
-
-        g.figure.subplots_adjust(
-            top=0.90,
-            bottom=0.15,
-            wspace=0.2,
-            hspace=0.2
+            bbox_to_anchor=(0.5, 0.02)
         )
 
         pdf_full_name = f"plots/{pdf_name}{k_val}.pdf"
@@ -157,5 +157,6 @@ files = glob.glob("results_boot/result_*.csv")
 list_df = [pd.read_csv(f) for f in files]
 df_res = pd.concat(list_df, ignore_index=True)
 df_res = df_res[df_res["scatters"] != "cov_cov4_ref"]
+df_res = df_res[df_res["model_index"].isin(["GMM2", "GMM3", "GMM5", "GMM6", "GMM7", "GMM8"])]
 
 plot_stacked_counts(df_res, scatter_order=None, target_label="n_comp", pdf_name="boot_counts_k")
