@@ -31,7 +31,6 @@ def generate_data(dict_model):
             mu=dict_model["mu"],
             sigma=dict_model["sigma"],
             n=N_DATA,
-            p=dict_model["p"],
         )
 
     elif model_label == "SMM":
@@ -41,7 +40,6 @@ def generate_data(dict_model):
             sigma=dict_model["sigma"],
             df=dict_model["df"],
             n=N_DATA,
-            p=dict_model["p"],
         )
 
     elif model_label == "PEM":
@@ -51,7 +49,6 @@ def generate_data(dict_model):
             sigma=dict_model["sigma"],
             beta=dict_model["beta"],
             n=N_DATA,
-            p=dict_model["p"],
         )
 
     else:
@@ -73,7 +70,7 @@ def get_dict_res(res, dict_scatter, dict_model, n_boot, args, real_id, simu_idx)
         "real_id": real_id,
         "simu_idx": simu_idx,
         "model_index": dict_model["index"],
-        "p": dict_model["p"],
+        "p": len(dict_model["mu"][0]),
         "k": len(dict_model["eps"]),
         "model_label": dict_model["model_label"],
         "model_desc": f"eps={dict_model["eps"]}, mu={dict_model["mu"]}, sigma={dict_model["sigma"]}",
@@ -98,7 +95,7 @@ def get_dict_res_cov_cov4(res, dict_scatter, dict_model, n_boot, args, real_id, 
         "real_id": real_id,
         "simu_idx": simu_idx,
         "model_index": dict_model["index"],
-        "p": dict_model["p"],
+        "p": len(dict_model["mu"][0]),
         "k": len(dict_model["eps"]),
         "model_label": dict_model["model_label"],
         "model_desc": f"eps={dict_model["eps"]}, mu={dict_model["mu"]}, sigma={dict_model["sigma"]}",
